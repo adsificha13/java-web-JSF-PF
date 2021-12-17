@@ -50,8 +50,15 @@ public class UsuarioController implements Serializable {
     }
     
     public void iniciarSesion(){
-    JsfUtil.addSuccessMessage(" Login " + this.login + " Password " + this.password );
-    System.out.print(" Login " + this.login + " Password " + this.password);
+    //JsfUtil.addSuccessMessage(" Login " + this.login + " Password " + this.password );
+    //System.out.print(" Login " + this.login + " Password " + this.password);
+    Usuario usuarioSesion = null;
+    usuarioSesion = getFacade().validarUsuario(login, password);
+    if(usuarioSesion == null){
+        JsfUtil.addErrorMessage("Error.. en Usuario o Contraseña Errada");
+    }else{
+    JsfUtil.addSuccessMessage("Exito.. su Usuario es Valido");
+    }
     }
 
     public Usuario getSelected() {

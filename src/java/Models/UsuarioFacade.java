@@ -29,4 +29,15 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         super(Usuario.class);
     }
     
+    public Usuario validarUsuario(String login, String password){
+    Usuario usu = null;
+    
+    try{
+    usu = getEntityManager().createNamedQuery("Usuario.validarUsuario", Usuario.class).setParameter("login", login).setParameter("password", password).getSingleResult();
+    }catch(Exception e){
+    usu = null;
+    }
+    return usu;
+    }
+    
 }
