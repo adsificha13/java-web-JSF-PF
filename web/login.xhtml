@@ -16,15 +16,15 @@
                     <h:form>
                         <h3>Usuario</h3>
                         <span class="ui-float-label">
-                            <p:inputText id="user" size="30"/>
+                            <p:inputText id="login" size="30" value="#{usuarioController.login}"/>
                             <p:outputLabel for="@previous" value="Digite usuario"/>
                         </span>
                         <h3>Contraseña</h3>
                         <span class="ui-float-label">
-                            <p:password id="password" redisplay="true" size="30"/>
+                            <p:password id="password" redisplay="true" size="30" value="#{usuarioController.password}"/>
                             <p:outputLabel for="@previous" value="Digite contraseña"/>
                         </span>
-                        <center><p:commandButton type="button" value="Ingresar" styleClass="ui-button-secondary"/></center>
+                        <center><p:commandButton value="Ingresar" styleClass="ui-button-secondary" actionListener="#{usuarioController.iniciarSesion()}" update=":growl"/></center>
                     </h:form>
                 </p>         
             </p:panel>

@@ -27,8 +27,31 @@ public class UsuarioController implements Serializable {
     private Models.UsuarioFacade ejbFacade;
     private List<Usuario> items = null;
     private Usuario selected;
+    private String login;
+    private String password;
 
     public UsuarioController() {
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    public void iniciarSesion(){
+    JsfUtil.addSuccessMessage(" Login " + this.login + " Password " + this.password );
+    System.out.print(" Login " + this.login + " Password " + this.password);
     }
 
     public Usuario getSelected() {
