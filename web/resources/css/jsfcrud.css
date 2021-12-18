@@ -16,7 +16,15 @@
     margin-top: 10px !important;
 }
 .formularioLogin{
-    width: 250px;
+    width: 270px;
     margin: 0 auto;
     
+}
+
+.nombreUsuario{
+   margin-top: 0px;   
+}
+
+.cerrarSesion{
+    float: right;
 }

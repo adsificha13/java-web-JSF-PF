@@ -4,6 +4,7 @@ import Entities.Usuario;
 import Controllers.util.JsfUtil;
 import Controllers.util.JsfUtil.PersistAction;
 import Models.UsuarioFacade;
+import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.List;
@@ -57,10 +58,53 @@ public class UsuarioController implements Serializable {
     if(usuarioSesion == null){
         JsfUtil.addErrorMessage("Error.. en Usuario o Contraseña Errada");
     }else{
-    JsfUtil.addSuccessMessage("Exito.. su Usuario es Valido");
+    
+    //guardar usuario en una sesion
+    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioSesionJSF", usuarioSesion);
+    
+    //obtener url_destino
+    String url_destino = usuarioSesion.getIdRol().getUrlDestino();
+    
+    //JsfUtil.addSuccessMessage("Exito.. su Usuario es Valido " + url_destino);
+        try {                        
+            //redireccionar a la pagina segun el rol
+            FacesContext.getCurrentInstance().getExternalContext().redirect(url_destino);
+        } catch (IOException ex) {
+            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+    }
+    
+    public Usuario getUsuarioSesion(){
+    return (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioSesionJSF");
+    }
+    
+    public void destroyUsuarioSesion(){
+        //limpiar sesion y dejar en nulo
+    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioSesionJSF", null);
+        try {
+            //redireccionar a pagina de inicio
+            FacesContext.getCurrentInstance().getExternalContext().redirect("../../login.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
+    public Boolean getvalidarSesion(){
+    Usuario usuTemporal = getUsuarioSesion();
+    
+    if (usuTemporal == null){
+    //return false;
+     try {                        
+            //redireccionar a la pagina para validar uruario
+            FacesContext.getCurrentInstance().getExternalContext().redirect("../../login.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    return true;
+    }
+    
     public Usuario getSelected() {
         return selected;
     }
