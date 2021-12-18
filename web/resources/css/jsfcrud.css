@@ -28,3 +28,14 @@
 .cerrarSesion{
     float: right;
 }
+
+.imagenLogin{
+    background-image: url("../resources/imagenes/fondo.jpg");
+    background-size: cover;
+}
+
+.p{
+    font-size: 150%;
+    border: 5px solid;
+    background-color: hsl(180, 50%, 80%);
+}
