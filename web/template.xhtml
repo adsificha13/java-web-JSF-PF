@@ -32,7 +32,7 @@
                         </p:submenu>
                     </p:menubar>
                 </h:form>
-                <h:form><p:commandButton action="#{usuarioController.destroyUsuarioSesion()}" value="Cerrar" class="cerrarSesion"/></h:form>
+                <h:form><p:commandButton actionListener="#{usuarioController.destroyUsuarioSesion()}" value="Cerrar" class="cerrarSesion" update=":growl"/></h:form>
                 <h1 class="nombreUsuario"><p:outputLabel value="#{usuarioController.usuarioSesion.idRol.nombre}"/>&nbsp;<p:outputLabel value="#{usuarioController.usuarioSesion.nombre}"/>&nbsp;<p:outputLabel value="#{usuarioController.usuarioSesion.apellido}"/></h1>      
             </p:layoutUnit>
 

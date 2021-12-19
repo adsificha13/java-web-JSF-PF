@@ -14,6 +14,7 @@
                 </f:facet>      
                 <p class="p-m-0">
                     <h:form>
+                        <div>
                         <h3>Usuario</h3>
                         <span class="ui-float-label">
                             <p:inputText id="login" size="30" value="#{usuarioController.login}"/>
@@ -25,6 +26,7 @@
                             <p:outputLabel for="@previous" value="Digite contraseña"/>
                         </span>
                         <center><p:commandButton value="Ingresar" styleClass="ui-button-secondary" actionListener="#{usuarioController.iniciarSesion()}" update=":growl"/></center>
+                        </div>
                     </h:form>
                 </p>         
             </p:panel>

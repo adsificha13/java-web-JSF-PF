@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListVentaTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form>
+                <div class="row">
+                    <div class="col-md-5 seccion1">
+                        <div class="card">
+                            <h2 class="card-header">Datos de cliente</h2>
+                            <div class="card-body">
+                                <form method="POST" action="">
+                                    <div class="row">
+                                        
+                                        <div class="col-md-4 d-flex"> 
+                                            <input type="number" name="documentoCliente" class="form-control" placeholder="Documento cliente"/>
+                                            <input type="submit" name="action" value="Buscar Cliente"/>                                         
+                                        </div> 
+                                    <br/>
+                                        <div class="col-md-8 d-flex"> 
+                                            <input type="text" name="nombreCliente" class="form-control" placeholder="Nombre de cliente"/>               
+                                        </div>                        
+                                    </div>
+                                </form>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-5 seccion1">
+                        <div class="card">
+                            <h2 class="card-header">Datos de Producto</h2>
+                            <div class="card-body">
+                                <form method="POST" action="">
+                                    <div class="row">
+                                        
+                                        <div class="col-md-4 d-flex"> 
+                                            <input type="number" name="codigoProducto" class="form-control" placeholder="Codigo de Producto"/>
+                                            <input type="submit" name="action" value="Buscar Producto"/>                                         
+                                        </div> 
+                                    <br/>
+                                        <div class="col-md-8 d-flex"> 
+                                            <input type="text" name="nombreProducto" class="form-control" placeholder="Nombre de Producto"/>               
+                                        </div> 
+                                    <br/>
+                                    <div class="col-md-4 d-flex form-group"> 
+                                            <input type="text" name="precioProducto" class="form-control" placeholder="$ 0000.00"/>   
+                                            <input type="number" value="1" name="cantidaProducto" class="form-control" placeholder="Cantidad"/>   
+                                        </div>                               
+                                    </div>                                   
+                                    <p:commandButton styleClass="ui-button-secondary"  value="Agregar Producto"  update=":growl"/>
+                                </form>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+            </h:form>
+
+
+
+
+        </ui:define>
+    </ui:composition>
+
+</html>
