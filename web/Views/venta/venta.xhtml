@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <link href="../../resources/bootstrap-5.1.3-dist/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <script src="../../resources/bootstrap-5.1.3-dist/js/bootstrap.js" type="text/javascript"></script>
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListVentaTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="formFactura">
+                <p:panel header="REALIZAR VENTA" style="width:900px; margin: 0 auto; text-align: center;"> 
+                    <p:layout id="capaDatosClienteFactura" style="width: 100%; height: 125px;">      
+                        <p:layoutUnit id="datoCliente" position="center" style="padding: 5px; text-align:  justify; 
+                                      font-size: 14px;" size="300">
+
+                            <h:panelGrid id="gridBuscarDatosCliente" columns="5">
+                                <p:outputLabel value="Codigo Cliente" style="font-weight: bold; "/>   
+                                <p:inputText size="12"/>
+                                <p:commandButton value="..." oncomplete="PF('dialogClientes').show();" update=":formFactura:dlgClientes"/>
+                                <p:outputLabel value="Fecha:  " style=" font-weight: bold;"/>
+                                <p:outputLabel value="Fecha del sistema" style="font-weight: bold;"/>
+                            </h:panelGrid>
+                            <p:separator/>
+
+                            <h:panelGrid id="gridDatosCliente" columns="2">
+                                <p:outputLabel value="Nombre: " style="font-weight: bold;"/> 
+                                <p:outputLabel id="lblNombreCliente" value=""/>
+
+                                <p:outputLabel value="Direccion: " style="font-weight: bold;"/> 
+                                <p:outputLabel id="lblDireccionCliente" value=""/>
+
+                                <p:outputLabel value="Numero Documento: " style="font-weight: bold;"/> 
+                                <p:outputLabel id="lblDocumentoCliente" value=""/>
+                            </h:panelGrid>
+                        </p:layoutUnit>
+
+
+                        <p:layoutUnit id="datoFactura" position="east" style="padding: 5px; text-align:  center;
+                                      font-size: 14px" size="200">
+                            <h:panelGrid columns="1" style="font-size: 24px; font-weight: bold; margin-top: 30px; margin: 0 auto">
+                                FACTURA
+                                <p:outputLabel value="000001"/>
+
+                            </h:panelGrid>                                               
+                        </p:layoutUnit>                         
+                    </p:layout>     
+                    <p:separator/>
+
+                    <p:panelGrid columns="3">
+                        <p:outputLabel value="Codigo Producto: "/>
+                        <p:inputText value="" size="12"/>
+                        <p:commandButton value="..."/>                        
+                    </p:panelGrid>
+                    <p:separator/>
+
+                    <p:dataTable id="tablaPruductosFactura">
+                        <p:column headerText="Codigo Producto">
+
+                        </p:column>
+
+                        <p:column headerText="Producto">
+
+                        </p:column>
+
+                        <p:column headerText="Stock">
+
+                        </p:column>
+
+                        <p:column headerText="Precio Venta">
+
+                        </p:column>
+
+                        <p:column headerText="Total">
+
+                        </p:column>
+                    </p:dataTable>
+                    <p:outputLabel value="TOTAL VENTA"/>
+                    $ <p:outputLabel value="total a vender"/>
+                    <p:separator/>
+                    <p:commandButton value="Registar" style="width: 150px; height: 30px"/>
+                    <p:commandButton value="Imprimir" style="width: 150px; height: 30px"/>
+                    <p:commandButton value="Cancelar" style="width: 150px; height: 30px"/>
+                </p:panel> 
+                <p:separator/>
+
+                <!--Dialogo para mostrar todos los datos clientes del sistema-->
+                <p:dialog id="dlgClientes" widgetVar="dialogClientes" modal="true" resizable="false" appendTo="@(body)"
+                          showEffect="explode" hideEffect="explode">
+                    <h:form id="ClienteListForm">
+                        <p:panel header="#{bundle.ListClienteTitle}">
+                            <p:dataTable id="datalist" value="#{clienteController.items}" var="item" style="width: 700px" 
+                                         selectionMode="single" selection="#{clienteController.selected}"
+                                         paginator="true"
+                                         paginatorPosition="top" 
+                                         rowKey="#{item.idCliente}"
+                                         rows="10"
+                                         rowsPerPageTemplate="10,20,30,40,50"
+                                         >
+                              
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListClienteTitle_idCliente}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.idCliente}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListClienteTitle_numeroDocumento}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.numeroDocumento}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListClienteTitle_nombres}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.nombres}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListClienteTitle_direccion}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.direccion}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListClienteTitle_idEstado}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.idEstado.estado}"/>
+                                </p:column>
+                                <p:column headerText="">
+                                    <p:commandButton value="Seleccionar" oncomplete="PF('dialogClientes').hide();" update=":formFactura:gridDatosCliente"/>
+                                </p:column>                             
+                            </p:dataTable>
+                            <p:commandButton value="Cerrar" onclick="PF('dialogClientes').hide();"/>
+                        </p:panel>
+                    </h:form> 
+                </p:dialog>
+
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

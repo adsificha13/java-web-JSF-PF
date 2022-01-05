@@ -3,6 +3,9 @@ package Controllers;
 import Entities.Cliente;
 import Controllers.util.JsfUtil;
 import Controllers.util.JsfUtil.PersistAction;
+import static Entities.Cliente_.direccion;
+import static Entities.Cliente_.nombres;
+import static Entities.Cliente_.numeroDocumento;
 import Models.ClienteFacade;
 
 import java.io.Serializable;
@@ -27,14 +30,27 @@ public class ClienteController implements Serializable {
     private Models.ClienteFacade ejbFacade;
     private List<Cliente> items = null;
     private Cliente selected;
-
+    
     public ClienteController() {
     }
-
+ 
+    public void buscarDatosCliente(){
+        Cliente datosCliente = null;
+    datosCliente = getFacade().buscarPorCodigoCliente(nombres, direccion, numeroDocumento);
+    // guardar datos en una sesion
+    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("datosClienteBuscar", datosCliente);
+   
+    }
+    
+    public Cliente getDatosCliente(){
+    
+    return (Cliente) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("datosClienteBuscar");
+    }
+    
     public Cliente getSelected() {
         return selected;
     }
-
+   
     public void setSelected(Cliente selected) {
         this.selected = selected;
     }
@@ -48,13 +64,13 @@ public class ClienteController implements Serializable {
     private ClienteFacade getFacade() {
         return ejbFacade;
     }
-
+    
     public Cliente prepareCreate() {
         selected = new Cliente();
         initializeEmbeddableKey();
         return selected;
     }
-
+    
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Lang/Bundle").getString("ClienteCreated"));
         if (!JsfUtil.isValidationFailed()) {

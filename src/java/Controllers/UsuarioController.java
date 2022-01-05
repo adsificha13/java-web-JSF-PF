@@ -65,7 +65,7 @@ public class UsuarioController implements Serializable {
     //obtener url_destino
     String url_destino = usuarioSesion.getIdRol().getUrlDestino();
     
-    //JsfUtil.addSuccessMessage("Exito.. su Usuario es Valido " + url_destino);
+    //JsfUtil.addSuccessMessage("Exito.. su Usuario es Valido " + url_destino); nos envia a la pagina por rol
         try {                        
             //redireccionar a la pagina segun el rol
             FacesContext.getCurrentInstance().getExternalContext().redirect(url_destino);
