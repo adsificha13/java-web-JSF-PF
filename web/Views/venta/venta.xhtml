@@ -32,16 +32,15 @@
 
                             <h:panelGrid id="gridDatosCliente" columns="2">
                                 <p:outputLabel value="Nombre: " style="font-weight: bold;"/> 
-                                <p:outputLabel id="lblNombreCliente" value=""/>
+                                <p:outputLabel id="lblNombreCliente" value="#{clienteController.datosCliente.nombres}"/>
 
                                 <p:outputLabel value="Direccion: " style="font-weight: bold;"/> 
-                                <p:outputLabel id="lblDireccionCliente" value=""/>
+                                <p:outputLabel id="lblDireccionCliente" value="#{clienteController.datosCliente.direccion}"/>
 
                                 <p:outputLabel value="Numero Documento: " style="font-weight: bold;"/> 
-                                <p:outputLabel id="lblDocumentoCliente" value=""/>
+                                <p:outputLabel id="lblDocumentoCliente" value="#{clienteController}"/>
                             </h:panelGrid>
                         </p:layoutUnit>
-
 
                         <p:layoutUnit id="datoFactura" position="east" style="padding: 5px; text-align:  center;
                                       font-size: 14px" size="200">
@@ -54,10 +53,11 @@
                     </p:layout>     
                     <p:separator/>
 
-                    <p:panelGrid columns="3">
+                    <p:panelGrid id="griBuscarProducto" columns="3">
                         <p:outputLabel value="Codigo Producto: "/>
                         <p:inputText value="" size="12"/>
-                        <p:commandButton value="..."/>                        
+                        <p:commandButton value="..." oncomplete="PF('dialogProductos').show()"
+                                         update=":formFactura:dlgProductos"/>                        
                     </p:panelGrid>
                     <p:separator/>
 
@@ -92,56 +92,110 @@
                 <p:separator/>
 
                 <!--Dialogo para mostrar todos los datos clientes del sistema-->
-                <p:dialog id="dlgClientes" widgetVar="dialogClientes" modal="true" resizable="false" appendTo="@(body)"
+                <p:dialog id="dlgClientes" widgetVar="dialogClientes" modal="true" resizable="false" appendTo="@(body)" 
                           showEffect="explode" hideEffect="explode">
                     <h:form id="ClienteListForm">
-                        <p:panel header="#{bundle.ListClienteTitle}">
-                            <p:dataTable id="datalist" value="#{clienteController.items}" var="item" style="width: 700px" 
-                                         selectionMode="single" selection="#{clienteController.selected}"
-                                         paginator="true"
-                                         paginatorPosition="top" 
-                                         rowKey="#{item.idCliente}"
-                                         rows="10"
-                                         rowsPerPageTemplate="10,20,30,40,50"
-                                         >
-                              
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListClienteTitle_idCliente}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.idCliente}"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListClienteTitle_numeroDocumento}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.numeroDocumento}"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListClienteTitle_nombres}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.nombres}"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListClienteTitle_direccion}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.direccion}"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListClienteTitle_idEstado}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.idEstado.estado}"/>
-                                </p:column>
-                                <p:column headerText="">
-                                    <p:commandButton value="Seleccionar" oncomplete="PF('dialogClientes').hide();" update=":formFactura:gridDatosCliente"/>
-                                </p:column>                             
-                            </p:dataTable>
-                            <p:commandButton value="Cerrar" onclick="PF('dialogClientes').hide();"/>
-                        </p:panel>
+                        <p:dataTable id="datalist" value="#{clienteController.items}" var="item" style="width: 700px" 
+                                     selectionMode="single" selection="#{clienteController.selected}"
+                                     paginator="true"
+                                     paginatorPosition="top" 
+                                     rowKey="#{item.idCliente}"
+                                     rows="10"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     >
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListClienteTitle_idCliente}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idCliente}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListClienteTitle_numeroDocumento}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.numeroDocumento}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListClienteTitle_nombres}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nombres}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListClienteTitle_direccion}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.direccion}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListClienteTitle_idEstado}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idEstado.estado}"/>
+                            </p:column>
+                            <p:column headerText="">
+                                <p:commandButton value="Seleccionar" oncomplete="PF('dialogClientes').hide();"  actionListener="#{clienteController.buscarDatosCliente()}" update=":formFactura:gridDatosCliente"/>
+                            </p:column>                             
+                        </p:dataTable>
+                        <p:commandButton value="Cerrar" onclick="PF('dialogClientes').hide();"/>
                     </h:form> 
+                </p:dialog>
+
+                <!--Dialogo para mostrar todos los datos de los Productos del sistema-->
+                <p:dialog id="dlgProductos" widgetVar="dialogProductos" modal="true" resizable="false" appendTo="@(body)" 
+                          showEffect="explode" hideEffect="explode">
+                    <h:form id="ProductoListForm">
+
+                        <p:dataTable id="datalist" value="#{productoController.items}" var="item" style="width: 700px"
+                                     selectionMode="single" selection="#{productoController.selected}"
+                                     paginator="true"
+                                     paginatorPosition="top"
+                                     rowKey="#{item.idProductos}"
+                                     rows="10"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     >
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListProductoTitle_idProductos}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idProductos}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListProductoTitle_nombre}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nombre}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListProductoTitle_precio}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.precio}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListProductoTitle_stock}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.stock}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListProductoTitle_codigo}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.codigo}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListProductoTitle_idEstado}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idEstado.toString()}"/>
+                            </p:column>
+                            <p:column headerText="">
+                                <p:commandButton value="Seleccionar" oncomplete="PF('dialogProductos').hide();"  actionListener="#{clienteController.buscarDatosCliente()}" update=":formFactura:tablaPruductosFactura"/>
+                            </p:column>                             
+                        </p:dataTable>
+                        <p:commandButton value="Cerrar" onclick="PF('dialogProductos').hide();"/>
+                    </h:form>            
                 </p:dialog>
 
 

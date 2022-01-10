@@ -31,11 +31,11 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
     }
     
   
-    public Cliente buscarPorCodigoCliente(String nombres, String direccion, String numeroDocumento){
+    public Cliente buscarPorCodigoCliente(String nombres, String direccion, String numeroDocumento, Integer idCliente){
         Cliente cli=null;
         
         try{
-        cli = getEntityManager().createNamedQuery("buscarPorCodigoCliente", Cliente.class).setParameter("nombres", nombres).setParameter("direccion", direccion).setParameter("numeroDocumento", numeroDocumento).getSingleResult();
+        cli = getEntityManager().createNamedQuery("buscarPorCodigoCliente", Cliente.class).setParameter("nombres", nombres).setParameter("direccion", direccion).setParameter("numeroDocumento", numeroDocumento).setParameter("idCliente", idCliente).getSingleResult();
         }catch (Exception e){
         cli = null;
         }
