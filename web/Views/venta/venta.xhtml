@@ -32,13 +32,13 @@
 
                             <h:panelGrid id="gridDatosCliente" columns="2">
                                 <p:outputLabel value="Nombre: " style="font-weight: bold;"/> 
-                                <p:outputLabel id="lblNombreCliente" value="#{clienteController.datosCliente.nombres}"/>
+                                <p:outputLabel id="lblNombreCliente" value=""/>
 
                                 <p:outputLabel value="Direccion: " style="font-weight: bold;"/> 
-                                <p:outputLabel id="lblDireccionCliente" value="#{clienteController.datosCliente.direccion}"/>
+                                <p:outputLabel id="lblDireccionCliente" value=""/>
 
                                 <p:outputLabel value="Numero Documento: " style="font-weight: bold;"/> 
-                                <p:outputLabel id="lblDocumentoCliente" value="#{clienteController.numeroDocumento}"/>
+                                <p:outputLabel id="lblDocumentoCliente" value=""/>
                             </h:panelGrid>
                         </p:layoutUnit>
 
@@ -134,7 +134,7 @@
                                 <h:outputText value="#{item.idEstado.estado}"/>
                             </p:column>
                             <p:column headerText="">
-                                <p:commandButton value="Seleccionar" oncomplete="PF('dialogClientes').hide();"  actionListener="#{clienteController.buscarDatosCliente()}" update=":formFactura:gridDatosCliente"/>
+                                <p:commandButton value="Seleccionar" oncomplete="PF('dialogClientes').hide();"   update=":formFactura:gridDatosCliente"/>
                             </p:column>                             
                         </p:dataTable>
                         <p:commandButton value="Cerrar" onclick="PF('dialogClientes').hide();"/>
@@ -191,7 +191,7 @@
                                 <h:outputText value="#{item.idEstado.toString()}"/>
                             </p:column>
                             <p:column headerText="">
-                                <p:commandButton value="Seleccionar" oncomplete="PF('dialogProductos').hide();"  actionListener="#{clienteController.datosCliente}" update=":formFactura:tablaPruductosFactura"/>
+                                <p:commandButton value="Seleccionar" oncomplete="PF('dialogProductos').hide();"   update=":formFactura:tablaPruductosFactura"/>
                             </p:column>                             
                         </p:dataTable>
                         <p:commandButton value="Cerrar" onclick="PF('dialogProductos').hide();"/>
