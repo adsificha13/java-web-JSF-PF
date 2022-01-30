@@ -3,9 +3,6 @@ package Controllers;
 import Entities.Cliente;
 import Controllers.util.JsfUtil;
 import Controllers.util.JsfUtil.PersistAction;
-import static Entities.Cliente_.direccion;
-import static Entities.Cliente_.nombres;
-import static Entities.Cliente_.numeroDocumento;
 import Models.ClienteFacade;
 
 import java.io.Serializable;
@@ -30,60 +27,7 @@ public class ClienteController implements Serializable {
     private Models.ClienteFacade ejbFacade;
     private List<Cliente> items = null;
     private Cliente selected;
-    private String nombres;
-    private String direccion;
-    private String numeroDocumento;
-    private Integer  idCliente;
     
-    public ClienteController() {
-    }
-
-    public String getNombres() {
-        return nombres;
-    }
-
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public String getNumeroDocumento() {
-        return numeroDocumento;
-    }
-
-    public void setNumeroDocumento(String numeroDocumento) {
-        this.numeroDocumento = numeroDocumento;
-    }
-
-    public Integer getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(Integer idCliente) {
-        this.idCliente = idCliente;
-    }
- 
-    
-    
-    public void buscarDatosCliente(){
-        Cliente datosCliente = null;
-    datosCliente = getFacade().buscarPorCodigoCliente(nombres, direccion, numeroDocumento, idCliente);
-    // guardar datos en una sesion
-    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("datosClienteBuscar", datosCliente);
-   
-    }
-    
-    public Cliente getDatosCliente(){
-    
-    return (Cliente) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("datosClienteBuscar");
-    }
     
     public Cliente getSelected() {
         return selected;
