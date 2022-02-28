@@ -242,7 +242,8 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "Entities.Usuario[ idUsuario=" + idUsuario + " ]";
+        return nombre;
+                //"Entities.Usuario[ idUsuario=" + idUsuario + " ]";
     }
     
 }

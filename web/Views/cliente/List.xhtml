@@ -55,13 +55,13 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListClienteTitle_idEstado}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idEstado.estado}"/>
+                            <h:outputText value="#{item.idEstado.toString()}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListClienteTitle_idVenta}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idVenta}"/>
+                            <h:outputText value="#{item.idVenta.toString()}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{clienteController.prepareCreate}" update=":ClienteCreateForm" oncomplete="PF('ClienteCreateDialog').show()"/>
@@ -76,7 +76,12 @@
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
+            <f:facet name="header"  >
+                <img alt="user header" src="../../resources/imagenes/clientes.png" style="height: 100px;"/>
+            </f:facet>
+            
         </ui:define>
     </ui:composition>
+
 
 </html>

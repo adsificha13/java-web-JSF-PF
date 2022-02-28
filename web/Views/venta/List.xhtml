@@ -31,7 +31,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListVentaTitle_idVenta}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idVenta}"/>
+                            <h:outputText value="#{item.idVenta.toString()}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -63,7 +63,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListVentaTitle_idUsuario}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idUsuario}"/>
+                            <h:outputText value="#{item.idUsuario.toString()}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{ventaController.prepareCreate}" update=":VentaCreateForm" oncomplete="PF('VentaCreateDialog').show()"/>
@@ -78,6 +78,10 @@
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
+            <f:facet name="header"  >
+                <img alt="user header" src="../../resources/imagenes/ventas.jpg" style="height: 100px;"/>
+            </f:facet>
+           
         </ui:define>
     </ui:composition>
 

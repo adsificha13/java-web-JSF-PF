@@ -131,7 +131,8 @@ public class Estado implements Serializable {
 
     @Override
     public String toString() {
-        return "Entities.Estado[ idEstado=" + idEstado + " ]";
+        return estado;
+                //"Entities.Estado[ idEstado=" + idEstado + " ]";
     }
     
 }
